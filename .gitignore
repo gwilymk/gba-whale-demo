@@ -4,3 +4,4 @@ images/*.s
 *.d
 *.elf
 *.gba
+*.sav
