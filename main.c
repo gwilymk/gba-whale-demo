@@ -164,6 +164,16 @@ void updateTilemapEntries()
     }
 }
 
+int max(int a, int b)
+{
+    return a > b ? a : b;
+}
+
+int min(int a, int b)
+{
+    return a < b ? a : b;
+}
+
 int main()
 {
     irqInit();
@@ -204,7 +214,7 @@ int main()
 #define BLOWING_FRAME_SKIP 4
     int blowingFrame = 0;
 
-#define TILE_UPDATE_DELAY 100
+#define TILE_UPDATE_DELAY 40
     int tileUpdate = TILE_UPDATE_DELAY;
 
     // 0 = left
@@ -252,21 +262,25 @@ int main()
         {
         case 0:
             x -= speed;
+            x = max(x, 0);
             tile = blowing ? 4 + blowingFrame / BLOWING_FRAME_SKIP : 0;
             objectSetHFlip(whale, false);
             break;
         case 1:
             y -= speed;
+            y = max(y, 0);
             tile = blowing ? 22 + blowingFrame / BLOWING_FRAME_SKIP : 3;
             objectSetHFlip(whale, false);
             break;
         case 2:
             x += speed;
+            x = min(x, SCREEN_WIDTH - 16);
             tile = blowing ? 4 + blowingFrame / BLOWING_FRAME_SKIP : 2;
             objectSetHFlip(whale, blowing);
             break;
         case 3:
             y += speed;
+            y = min(y, SCREEN_HEIGHT - 16);
             tile = blowing ? 13 + blowingFrame / BLOWING_FRAME_SKIP : 1;
             objectSetHFlip(whale, false);
             break;
