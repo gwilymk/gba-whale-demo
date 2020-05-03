@@ -6,6 +6,7 @@
         "images/*.s": true,
         "*.elf": true,
         "*.gba": true,
-        "**/*.ase": true
+        "**/*.ase": true,
+        "*.sav": true
     }
 }
