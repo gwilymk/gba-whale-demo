@@ -7,9 +7,13 @@
             "cStandard": "c11",
             "cppStandard": "c++17",
             "intelliSenseMode": "clang-x64",
+            "compilerArgs": [
+                "-fno-implicit-function-declaration"
+            ],
             "includePath": [
                 "${workspaceFolder}/images",
-                "/home/gwilym/Install/libgba/include"
+                "/home/gwilym/Install/libgba/include",
+                "${workspaceFolder}/include"
             ]
         }
     ],
