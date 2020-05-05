@@ -4,6 +4,7 @@
 #include <gba_input.h>
 
 #include <lostgba/ObjectAttribute.h>
+#include <lostgba/TileMap.h>
 
 #include <string.h>
 
@@ -12,8 +13,8 @@
 
 void setupSprites()
 {
-    memcpy(SPRITE_PALETTE, whalePal, whalePalLen);
-    memcpy(TILE_BASE_ADR(4), whaleTiles, whaleTilesLen);
+    TileMap_CopyToSpritePalette(whalePal);
+    TileMap_CopyToSpriteTiles(0, whaleTiles, whaleTilesLen);
 
     for (int i = 0; i < 128; i++)
     {
@@ -23,8 +24,8 @@ void setupSprites()
 
 void setupTilemap()
 {
-    memcpy(BG_PALETTE, tilemapPal, tilemapPalLen);
-    memcpy(TILE_BASE_ADR(0), tilemapTiles, tilemapTilesLen);
+    TileMap_CopyToBackgroundPalette(tilemapPal);
+    TileMap_CopyToBackgroundTiles(0, tilemapTiles, tilemapTilesLen);
 }
 
 u32 randomNumber()
