@@ -25,7 +25,7 @@ OBJCOPY := $(PREFIX)objcopy
 ARCH    := -mthumb-interwork -mthumb
 SPECS   := -specs=gba.specs
 
-CFLAGS  := $(ARCH) -O2 -Wall -Wextra -fno-strict-aliasing -I$(LIBGBA)/include -Iinclude -Iimages -flto -Werror=implicit-function-declaration -g
+CFLAGS  := $(ARCH) -O2 -Wall -Wextra -fno-strict-aliasing -I$(LIBGBA)/include -Iinclude -Iimages -flto -Werror=implicit-function-declaration -g -Wstrict-prototypes -Wwrite-strings -Wuninitialized
 LDFLAGS := $(ARCH) $(SPECS) -L$(LIBGBA)/lib -lgba -flto -g -O2
 
 default: build
