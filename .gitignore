@@ -5,3 +5,4 @@ images/*.s
 *.elf
 *.gba
 *.sav
+docs/
