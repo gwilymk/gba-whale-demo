@@ -29,6 +29,9 @@ typedef int16_t s16;
 /** Signed 32 bit value */
 typedef int32_t s32;
 
+/** Volatile unsigned 16 bit value */
+typedef volatile u16 vu16;
+
 /** 
  * @brief Tells the compiler that this must always be n-byte aligned
  * @param n The byte-alignment that this struct must always be in memory
