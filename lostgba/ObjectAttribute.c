@@ -1,6 +1,7 @@
 #include <lostgba/ObjectAttribute.h>
 
 struct ObjectAttribute objectAttributeBuffer[ObjectAttributeBuffer_Length];
+struct ObjectAffine *objectAffineBuffer = (struct ObjectAffine *)objectAttributeBuffer;
 
 #define SET_BITS(obj, value, mask, shift)                                       \
     do                                                                          \
