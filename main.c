@@ -11,7 +11,7 @@
 #include <whale.h>
 #include <tilemap.h>
 
-void setupSprites()
+void setupSprites(void)
 {
     TileMap_CopyToSpritePalette(whalePal);
     TileMap_CopyToSpriteTiles(0, whaleTiles, whaleTilesLen);
@@ -22,13 +22,13 @@ void setupSprites()
     }
 }
 
-void setupTilemap()
+void setupTilemap(void)
 {
     TileMap_CopyToBackgroundPalette(tilemapPal);
     TileMap_CopyToBackgroundTiles(0, tilemapTiles, tilemapTilesLen);
 }
 
-u32 randomNumber()
+u32 randomNumber(void)
 {
     static u32 state = 12023908;
 
@@ -39,7 +39,7 @@ u32 randomNumber()
     return state;
 }
 
-void updateTilemapEntries()
+void updateTilemapEntries(void)
 {
     for (int i = 0; i < 32 * 32; i++)
     {
@@ -62,7 +62,7 @@ int min(int a, int b)
     return a < b ? a : b;
 }
 
-int main()
+int main(void)
 {
     irqInit();
     irqEnable(IRQ_VBLANK);
