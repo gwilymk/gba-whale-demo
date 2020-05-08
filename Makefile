@@ -12,6 +12,7 @@ IMAGE_OBJS := $(patsubst %.png,%.o,$(IMAGES))
 IMAGE_HEADERS := $(patsubst %.png,%.h,$(IMAGES))
 
 CFILES  := $(shell find -name '*.c')
+HFILES  := $(shell find -name '*.h')
 OBJS    := $(patsubst %.c,%.o,$(CFILES)) $(IMAGE_OBJS)
 DEPS    := $(patsubst %.c,%.d,$(CFILES))
 
@@ -30,9 +31,15 @@ LDFLAGS := $(ARCH) $(SPECS) -L$(LIBGBA)/lib -lgba -flto -g -O2
 
 default: build
 
-.PHONY : build clean default
+.PHONY : build clean default docs
 .SUFFIXES:
 .SUFFIXES: .c .o .s .h .png
+
+docs: docs/html/index.html
+
+docs/html/index.html: Makefile Doxyfile $(CFILES) $(HFILES)
+	@echo [DOXYGEN]
+	doxygen
 
 .SECONDARY: $(IMAGE_HEADERS)
 
