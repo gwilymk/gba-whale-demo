@@ -42,14 +42,15 @@ u32 randomNumber(void)
 
 void updateTilemapEntries(void)
 {
-    for (int i = 0; i < 32 * 32; i++)
+    for (int y = 0; y < 32; y++)
     {
-        int r = randomNumber();
+        for (int x = 0; x < 32; x++)
+        {
+            int r = randomNumber();
+            int tileToUse = r & 1;
 
-        s16 tileToUse = !(r & 0x4);
-
-        s16 screenEntry = tileToUse;
-        ((s16 *)MAP_BASE_ADR(30))[i] = screenEntry;
+            Background_SetTile(30, BackgroundSize_32x32, x, y, tileToUse, false, false, 0);
+        }
     }
 }
 

@@ -13,7 +13,6 @@
 
 #pragma once
 
-#include <stdbool.h>
 #include "GbaTypes.h"
 
 /**

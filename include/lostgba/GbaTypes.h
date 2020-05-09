@@ -14,6 +14,7 @@
 #pragma once
 
 #include <stdint.h>
+#include <stdbool.h>
 
 /** Unsigned 8 bit value */
 typedef uint8_t u8;
