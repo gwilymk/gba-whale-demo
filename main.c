@@ -1,6 +1,6 @@
-#include <gba_interrupt.h>
 #include <gba_systemcalls.h>
 
+#include <lostgba/Interrupt.h>
 #include <lostgba/ObjectAttribute.h>
 #include <lostgba/TileMap.h>
 #include <lostgba/Background.h>
@@ -66,16 +66,15 @@ int min(int a, int b)
 
 int main(void)
 {
-    irqInit();
-    irqEnable(IRQ_VBLANK);
-
-    REG_IME = 1; // allow interrupts
-
     struct GraphicsSettings graphicsSettings = {
         .graphicsMode = GraphicsMode_0,
         .enableBG0 = true,
         .enableSprites = true};
     Graphics_SetMode(graphicsSettings);
+
+    Interrupt_Init();
+    Interrupt_EnableType(InterruptType_VBlank);
+    Interrupt_Enable();
 
     Background_SetColourMode(BackgroundNumber_0, BackgroundColourMode_4PP);
     Background_SetSize(BackgroundNumber_0, BackgroundSize_32x32);

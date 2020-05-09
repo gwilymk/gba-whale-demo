@@ -12,6 +12,9 @@
         __builtin_unreachable(); \
     } while (0)
 
+#define IWRAM_CODE __attribute__((section(".iwram"), long_call))
+#define ARM_TARGET __attribute__((target("arm")))
+
 /**
  * @brief Utility function to set bits at a certain location
  * 

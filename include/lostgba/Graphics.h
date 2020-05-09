@@ -49,6 +49,9 @@ struct GraphicsSettings
 /** Sets the graphics mode */
 void Graphics_SetMode(struct GraphicsSettings graphicsSettings);
 
+/** Controls whether we should trigger vblank interrupts */
+void Graphics_SetVBlankInterrupt(bool enabled);
+
 #define Graphics_ScreenWidth 240
 #define Graphics_ScreenHeight 160
 

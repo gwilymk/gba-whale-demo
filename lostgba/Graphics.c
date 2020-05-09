@@ -1,7 +1,7 @@
 #include <lostgba/Graphics.h>
 #include "LostGbaInternal.h"
 
-static vu16 *Graphics_displayControlRegister = (vu16 *)0x4000000;
+static vu16 *Graphics_displayControlRegister = (vu16 *)0x04000000;
 
 void Graphics_SetMode(struct GraphicsSettings settings)
 {
@@ -16,4 +16,11 @@ void Graphics_SetMode(struct GraphicsSettings settings)
                (settings.enableSprites << 12);
 
     *Graphics_displayControlRegister = mode;
+}
+
+static vu16 *Graphics_displayStatusRegister = (vu16 *)0x04000004;
+
+void Graphics_SetVBlankInterrupt(bool enabled)
+{
+    *Graphics_displayStatusRegister |= enabled << 3;
 }
