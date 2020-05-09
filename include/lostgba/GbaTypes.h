@@ -47,4 +47,6 @@ typedef volatile u16 vu16;
  */
 #define LOSTGBA_ALIGN(n) __attribute__((aligned(n)))
 
+#define LOSTGBA_PACKED_ALIGN(n) __attribute__((packed, aligned(n)))
+
 /** @} */

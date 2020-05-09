@@ -1,4 +1,3 @@
-#include <gba_video.h>
 #include <gba_interrupt.h>
 #include <gba_systemcalls.h>
 
@@ -6,6 +5,7 @@
 #include <lostgba/TileMap.h>
 #include <lostgba/Background.h>
 #include <lostgba/Input.h>
+#include <lostgba/Graphics.h>
 
 #include <string.h>
 
@@ -71,7 +71,11 @@ int main(void)
 
     REG_IME = 1; // allow interrupts
 
-    SetMode(MODE_0 | BG0_ENABLE | OBJ_ENABLE | OBJ_1D_MAP);
+    struct GraphicsSettings graphicsSettings = {
+        .graphicsMode = GraphicsMode_0,
+        .enableBG0 = true,
+        .enableSprites = true};
+    Graphics_SetMode(graphicsSettings);
 
     Background_SetColourMode(BackgroundNumber_0, BackgroundColourMode_4PP);
     Background_SetSize(BackgroundNumber_0, BackgroundSize_32x32);
@@ -164,13 +168,13 @@ int main(void)
             break;
         case 2:
             x += speed;
-            x = min(x, SCREEN_WIDTH - 16);
+            x = min(x, Graphics_ScreenWidth - 16);
             tile = blowing ? 4 + blowingFrame / BLOWING_FRAME_SKIP : 2;
             ObjectAttribute_SetHFlip(whale, blowing);
             break;
         case 3:
             y += speed;
-            y = min(y, SCREEN_HEIGHT - 16);
+            y = min(y, Graphics_ScreenHeight - 16);
             tile = blowing ? 13 + blowingFrame / BLOWING_FRAME_SKIP : 1;
             ObjectAttribute_SetHFlip(whale, false);
             break;
