@@ -31,7 +31,7 @@ LDFLAGS := $(ARCH) $(SPECS) -L$(LIBGBA)/lib -lgba -flto -g -O2
 
 default: build
 
-.PHONY : build clean default docs
+.PHONY : build clean default docs dump
 .SUFFIXES:
 .SUFFIXES: .c .o .s .h .png
 
@@ -40,6 +40,12 @@ docs: docs/html/index.html
 docs/html/index.html: Makefile Doxyfile $(CFILES) $(HFILES)
 	@echo [DOXYGEN]
 	doxygen
+
+dump: $(TARGET).dump
+
+$(TARGET).dump: $(TARGET).elf Makefile
+	@echo [OBJDUMP]
+	@$(PREFIX)objdump -Sd $< > $@
 
 .SECONDARY: $(IMAGE_HEADERS)
 

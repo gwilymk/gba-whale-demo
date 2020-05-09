@@ -99,4 +99,5 @@ enum BackgroundSize
 };
 /** Set the background size for the given background */
 void Background_SetSize(enum BackgroundNumber backgroundNumber, enum BackgroundSize backgroundSize);
+
 /** @} */
