@@ -26,8 +26,11 @@ OBJCOPY := $(PREFIX)objcopy
 ARCH    := -mthumb-interwork -mthumb
 SPECS   := -specs=gba.specs
 
-CFLAGS  := $(ARCH) -O2 -Wall -Wextra -fno-strict-aliasing -I$(LIBGBA)/include -Iinclude -Iimages -flto -Werror=implicit-function-declaration -g -Wstrict-prototypes -Wwrite-strings -Wuninitialized
-LDFLAGS := $(ARCH) $(SPECS) -L$(LIBGBA)/lib -lgba -flto -g -O2
+CFLAGS  := $(ARCH) -O3 -flto -g \
+	-Wall -Wextra -fno-strict-aliasing -Werror=implicit-function-declaration -Wstrict-prototypes -Wwrite-strings -Wuninitialized \
+	-I$(LIBGBA)/include -Iinclude -Iimages
+
+LDFLAGS := $(ARCH) $(SPECS) -L$(LIBGBA)/lib -lgba -flto -g -O3
 
 default: build
 
@@ -79,10 +82,9 @@ $(TARGET).elf : $(OBJS)
 # --- Clean -----------------------------------------------------------
 
 .PHONY: clean
-clean : 
-	@rm -fv *.gba
-	@rm -fv *.elf
-	@rm -fv *.o *.d
-	@rm -rf images/*.o images/*.h images/*.s
+clean :
+	@rm -fv $(TARGET).gba $(TARGET).elf $(TARGET).dump
+	@rm -fv $(OBJS) $(DEPS)
+	@rm -rf images/*.h images/*.s
 
 -include $(DEPS)
