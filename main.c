@@ -75,7 +75,6 @@ int main(void)
     Background_SetSize(BackgroundNumber_0, BackgroundSize_32x32);
     Background_SetTileBackgroundNumber(BackgroundNumber_0, 0);
     Background_SetScreenBaseBlock(BackgroundNumber_0, 30);
-    REG_BG0CNT = BG_16_COLOR | BG_SIZE_0 | TILE_BASE(0) | MAP_BASE(30);
 
     setupTilemap();
     updateTilemapEntries();
