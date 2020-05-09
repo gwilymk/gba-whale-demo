@@ -1,11 +1,11 @@
 #include <gba_video.h>
 #include <gba_interrupt.h>
 #include <gba_systemcalls.h>
-#include <gba_input.h>
 
 #include <lostgba/ObjectAttribute.h>
 #include <lostgba/TileMap.h>
 #include <lostgba/Background.h>
+#include <lostgba/Input.h>
 
 #include <string.h>
 
@@ -95,9 +95,6 @@ int main(void)
     ObjectAttribute_SetGraphicsMode(whale, ObjectAttributeGraphicsMode_Normal);
 
     int tile = 0;
-
-    setRepeat(1, 1);
-
     int bobbing = 0;
 
 #define BOBBING_MAX_DELAY 20
@@ -119,35 +116,34 @@ int main(void)
 
     while (true)
     {
-        scanKeys();
-        u16 keyState = keysDownRepeat();
+        Input_UpdateKeyState();
         int speed = 0;
 
-        if (keyState & KEY_UP)
+        if (Input_IsKeyDown(InputKey_Up))
         {
             direction = 1;
             speed = 1;
         }
 
-        if (keyState & KEY_LEFT)
+        if (Input_IsKeyDown(InputKey_Left))
         {
             direction = 0;
             speed = 1;
         }
 
-        if (keyState & KEY_RIGHT)
+        if (Input_IsKeyDown(InputKey_Right))
         {
             direction = 2;
             speed = 1;
         }
 
-        if (keyState & KEY_DOWN)
+        if (Input_IsKeyDown(InputKey_Down))
         {
             direction = 3;
             speed = 1;
         }
 
-        if (keyState & KEY_A)
+        if (Input_IsNewlyPressed(InputKey_A))
         {
             blowing = true;
         }
