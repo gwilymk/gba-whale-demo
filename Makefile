@@ -26,17 +26,20 @@ OBJCOPY := $(PREFIX)objcopy
 ARCH    := -mthumb-interwork -mthumb
 SPECS   := -specs=gba.specs
 
-CFLAGS  := $(ARCH) -O3 -flto -g \
+CFLAGS  := $(ARCH) -O2 -flto -g \
 	-Wall -Wextra -fno-strict-aliasing -Werror=implicit-function-declaration -Wstrict-prototypes -Wwrite-strings -Wuninitialized \
 	-I$(LIBGBA)/include -Iinclude -Iimages
 
-LDFLAGS := $(ARCH) $(SPECS) -L$(LIBGBA)/lib -lgba -flto -g -O3
+LDFLAGS := $(ARCH) $(SPECS) -L$(LIBGBA)/lib -lgba -flto -g -O2
 
 default: build
 
-.PHONY : build clean default docs dump
+.PHONY : build clean default docs dump gdb
 .SUFFIXES:
 .SUFFIXES: .c .o .s .h .png
+
+gdb: whale.elf
+	$(PREFIX)gdb whale.elf
 
 docs: docs/html/index.html
 
