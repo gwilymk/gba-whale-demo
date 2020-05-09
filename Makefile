@@ -42,7 +42,7 @@ docs: docs/html/index.html
 
 docs/html/index.html: Makefile Doxyfile $(CFILES) $(HFILES)
 	@echo [DOXYGEN]
-	doxygen
+	@-doxygen
 
 dump: $(TARGET).dump
 
@@ -72,8 +72,9 @@ $(TARGET).dump: $(TARGET).elf Makefile
 build: $(TARGET).gba
 
 $(TARGET).gba : $(TARGET).elf
-	$(OBJCOPY) -v -O binary $< $@
-	-@gbafix $@
+	@echo [OBJCOPY] $@
+	@$(OBJCOPY) -v -O binary $< $@ > /dev/null
+	@gbafix $@ > /dev/null
 
 $(TARGET).elf : $(OBJS)
 	@echo [LD] $<
