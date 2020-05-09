@@ -1,11 +1,10 @@
-#include <gba_systemcalls.h>
-
 #include <lostgba/Interrupt.h>
 #include <lostgba/ObjectAttribute.h>
 #include <lostgba/TileMap.h>
 #include <lostgba/Background.h>
 #include <lostgba/Input.h>
 #include <lostgba/Graphics.h>
+#include <lostgba/SystemCalls.h>
 
 #include <string.h>
 
@@ -207,7 +206,7 @@ int main(void)
             updateTilemapEntries();
         }
 
-        VBlankIntrWait();
+        SystemCall_WaitForVBlank();
         ObjectAttributeBuffer_CopyBufferToMemory();
     }
 }
