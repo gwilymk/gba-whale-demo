@@ -1,7 +1,5 @@
 PATH := $(DEVKITARM)/bin:$(PATH)
 
-include $(DEVKITARM)/gba_rules
-
 # --- Project details -------------------------------------------------
 
 PROJ    := whale
@@ -30,7 +28,7 @@ CFLAGS  := $(ARCH) -O2 -flto -g \
 	-Wall -Wextra -fno-strict-aliasing -Werror=implicit-function-declaration -Wstrict-prototypes -Wwrite-strings -Wuninitialized \
 	-I$(LIBGBA)/include -Iinclude -Iimages
 
-LDFLAGS := $(ARCH) $(SPECS) -L$(LIBGBA)/lib -lgba -flto -g -O2
+LDFLAGS := $(ARCH) $(SPECS) -flto -g -O2
 
 default: build
 
