@@ -6,3 +6,4 @@ images/*.s
 *.gba
 *.sav
 docs/
+*.dump
