@@ -8,4 +8,7 @@
 
 #pragma once
 
+/** Halts the CUP until a VBlank occurs. Ensure that VBlank interrupts are enabled otherwise this will hang. */
 void SystemCall_WaitForVBlank(void);
+
+/** @} */
