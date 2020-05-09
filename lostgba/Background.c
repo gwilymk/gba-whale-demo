@@ -1,25 +1,15 @@
 #include <lostgba/Background.h>
-
-static u16 nOnes(int n)
-{
-    return (1 << n) - 1;
-}
-
-static void setBits16(u16 *target, u16 value, u16 length, u16 shift)
-{
-    u16 mask = nOnes(length);
-    (*target) = (*target & (mask << shift)) | ((value & mask) << shift);
-}
+#include "LostGbaInternal.h"
 
 #define Background_ControlRegisterBase ((u16 *)0x04000008);
 static u16 *Background_controlRegister(enum BackgroundNumber background)
 {
-    return Background_controlRegister + sizeof(u16) * background;
+    return (u16 *)(Background_controlRegister + sizeof(u16) * background);
 }
 
 static void Background_setBits(enum BackgroundNumber backgroundNumber, u16 value, u16 length, u16 shift)
 {
-    setBits16(Background_controlRegister(backgroundNumber), value, length, shift);
+    LostGBA_SetBits16(Background_controlRegister(backgroundNumber), value, length, shift);
 }
 
 void Background_SetPriority(enum BackgroundNumber backgroundNumber, int priority)

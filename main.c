@@ -5,6 +5,7 @@
 
 #include <lostgba/ObjectAttribute.h>
 #include <lostgba/TileMap.h>
+#include <lostgba/Background.h>
 
 #include <string.h>
 
@@ -70,6 +71,10 @@ int main(void)
     REG_IME = 1; // allow interrupts
 
     SetMode(MODE_0 | BG0_ENABLE | OBJ_ENABLE | OBJ_1D_MAP);
+    Background_SetColourMode(BackgroundNumber_0, BackgroundColourMode_4PP);
+    Background_SetSize(BackgroundNumber_0, BackgroundSize_32x32);
+    Background_SetTileBackgroundNumber(BackgroundNumber_0, 0);
+    Background_SetScreenBaseBlock(BackgroundNumber_0, 30);
     REG_BG0CNT = BG_16_COLOR | BG_SIZE_0 | TILE_BASE(0) | MAP_BASE(30);
 
     setupTilemap();

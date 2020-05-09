@@ -22,10 +22,19 @@
 #include "GbaTypes.h"
 #include "LostGbaUtil.h"
 
+/** Background number enum. Used to force people to think harder about which background number they are using */
+enum BackgroundNumber
+{
+    BackgroundNumber_0, /**< Background number 0 */
+    BackgroundNumber_1, /**< Background number 1 */
+    BackgroundNumber_2, /**< Background number 2 */
+    BackgroundNumber_3  /**< Background number 3 */
+};
+
 /** Set the priority of a given background (0 - 4) */
-void Background_SetPriority(int backgroundNumber, int priority);
+void Background_SetPriority(enum BackgroundNumber backgroundNumber, int priority);
 /** Set the background number (character base block). TileMap_CopyToBackgroundTiles sets the tiles themselves */
-void Background_SetTileBackgroundNumber(int backgroundNumber, int tileBackgroundNumber);
+void Background_SetTileBackgroundNumber(enum BackgroundNumber backgroundNumber, int tileBackgroundNumber);
 
 /** The colour mode of the background */
 enum BackgroundColourMode
@@ -37,15 +46,57 @@ enum BackgroundColourMode
 };
 
 /** Set the current colour mode of the background */
-void Background_SetColourMode(int backgroundNumber, enum BackgroundColourMode colourMode);
+void Background_SetColourMode(enum BackgroundNumber backgroundNumber, enum BackgroundColourMode colourMode);
 /** Set the current screenblock for the given background. This is what determines which tiles get placed where */
-#define Background_SetScreenBlock(backgroundNumber, screenBlock)                                                 \
+#define Background_SetScreenBaseBlock(backgroundNumber, screenBlock)                                             \
     do                                                                                                           \
     {                                                                                                            \
         _Static_assert(0 <= screenBlock && screenBlock <= 31, "Screenblock must be between 0 and 31 inclusive"); \
-        LOSTGBA_UNSAFE(Background_SetScreenblock)                                                                \
+        LOSTGBA_UNSAFE(Background_SetScreenBaseBlock)                                                            \
         (backgroundNumber, screenBlock);                                                                         \
     } while (0)
-void LOSTGBA_UNSAFE(Background_SetScreenblock)(int backgroundNumber, int screenblock);
+/** Unsafe version of Background_SetScreenBlock */
+void LOSTGBA_UNSAFE(Background_SetScreenBaseBlock)(enum BackgroundNumber backgroundNumber, int screenblock);
 
+/** Background size flags. The map layout is a bit strange if you pick higher than 32x32 tiles. */
+enum BackgroundSize
+{
+    /**
+     * @brief 32 x 32 tiles (or 256 x 256 pixels)
+     * 
+     * The actual tiles will be defined by the 32x32 entries in the base block for this background
+     */
+    BackgroundSize_32x32,
+    /**
+     * @brief 64 x 32 tiles (or 512 x 256 pixels)
+     * 
+     * The actual tiles used are in 2 blocks of 32 x 32 tiles arranged as follows:
+     * <table>
+     * <tr><td>BaseBlock</td><td>BaseBlock + 1</td></tr>
+     * </table>
+     */
+    BackgroundSize_64x32,
+    /**
+     * @brief 32 x 64 tiles (or 256 x 512 pixels)
+     * 
+     * The actual tiles used are in 2 blocks of 32 x 32 arranged as follows:
+     * <table>
+     * <tr><td>BaseBlock</td></tr>
+     * <tr><td>BaseBlock + 1</td></tr>
+     * </table>
+     */
+    BackgroundSize_32x64,
+    /**
+     * @brief 64 x 64 tiles (or 512 x 512 pixels)
+     * 
+     * The actual tiles used are in 4 blocks of 32 x 32 arranged as follows:
+     * <table>
+     * <tr><td>BaseBlock</td><td>BaseBlock + 1</td></tr>
+     * <tr><td>BaskBlock + 2</td><td>BaseBlock + 3</td></tr>
+     * </table>
+     */
+    BackgroundSize_64x64
+};
+/** Set the background size for the given background */
+void Background_SetSize(enum BackgroundNumber backgroundNumber, enum BackgroundSize backgroundSize);
 /** @} */
